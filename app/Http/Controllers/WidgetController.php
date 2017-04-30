@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Widget;
+use Redirect;
 
 class WidgetController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,8 @@ class WidgetController extends Controller
      */
     public function index()
     {
-        //
+        $widgets = Widget::paginate(10);
+        return view('widget.index', compact('widgets'));
     }
 
     /**
@@ -34,7 +42,20 @@ class WidgetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, ['name' => 'required|unique:widgets|string|max:30']);
+
+        $slug = str_slug($request->name, "-");
+
+        $widget = Widget::create([
+            'name'        => $request->name,
+            'slug'        => $slug,
+            'user_id'     => Auth::id()
+        ]);
+        $widget->save();
+
+        alert()->success('Congrats!', 'You made a Widget'. $request->name);
+
+        return Redirect::route('widget.index');
     }
 
     /**
@@ -43,9 +64,18 @@ class WidgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $slug = '')
     {
-        //
+        $widget = Widget::findOrFail($id);
+
+        if ($widget->slug !== $slug) {
+            return Redirect::route('widget.show', [
+                'id' => $widget->id,
+                'slug' => $widget->slug
+            ], 301);
+        }
+
+        return view('widget.show', compact('widget'));
     }
 
     /**

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         Widget::unguard();
         Widget::truncate();
-        factory(Widget::class)->create();
+        factory(Widget::class, 29)->create();
         Widget::reguard();
     }
 }
