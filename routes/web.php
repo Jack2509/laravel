@@ -11,9 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //Test route
 Route::get('/test','TestController@index');
+
+//Page controller
+Route::get('/','PagesController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//Widget resource
+Route::resource('/widget', 'WidgetController');
