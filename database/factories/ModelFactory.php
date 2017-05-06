@@ -35,3 +35,14 @@ $factory->define(App\Widget::class, function (Faker\Generator $faker) {
         'user_id' => $user_id
     ];
 });
+
+$factory->define(App\Role::class, function (Faker\Generator $faker) {
+
+    $name = $faker->unique()->word . ' ' . $faker->unique()->word;
+    $user_id = rand(1,4);
+
+    return [
+        'name' => $name,
+        'user_id' => $user_id
+    ];
+});

@@ -5,3 +5,6 @@
     <title>Test page</title>
 
 @endsection
+@section('content')
+    {{dd($beatles)}}
+@endsection

@@ -17,7 +17,7 @@
 
 //Test route
 Route::get('/test','TestController@index');
-
+    
 //Page controller
 Route::get('/','PagesController@index');
 

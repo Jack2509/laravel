@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Widget;
+use App\User;
 
 class TestController extends Controller
 {
@@ -13,7 +15,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $beatles = ['John', 'Paul', 'George', 'Ringo'];
+        $beatles = User::find(1)->widgets();
         // $beatles = [];
         
         return view('test.index', compact('beatles'));

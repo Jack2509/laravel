@@ -53,7 +53,7 @@ class WidgetController extends Controller
         ]);
         $widget->save();
 
-        alert()->success('Congrats!', 'You made a Widget'. $request->name);
+        // alert()->success('Congrats!', 'You made a Widget'. $request->name);
 
         return Redirect::route('widget.index');
     }
